@@ -45,7 +45,6 @@ public class Simulacija extends Frame {
 				// moze biti neka druga figura, ne mora disk
 				Figura f = new Disk(polozaj, pomeraj);
 
-				// System.out.println("KLIK NA: " + x + ", " + y);
 
 				scena.dodajFiguru(f);
 				scena.repaint();
@@ -76,6 +75,10 @@ public class Simulacija extends Frame {
 		});
 		setResizable(true);
 		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new Simulacija();
 	}
 
 }

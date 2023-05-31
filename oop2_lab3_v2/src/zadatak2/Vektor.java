@@ -29,7 +29,7 @@ public class Vektor {
 	public Vektor ortVektor() {
 		double magnituda = Math.sqrt(x * x + y * y);
 		if (magnituda == 0)
-			return null;
+			return new Vektor(0, 0);
 		return new Vektor(x / magnituda, y / magnituda);
 	}
 

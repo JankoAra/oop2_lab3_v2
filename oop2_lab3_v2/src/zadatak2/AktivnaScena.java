@@ -99,8 +99,6 @@ public class AktivnaScena extends Canvas implements Runnable {
 					repaint();
 				}
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
 			}
 		}
 
@@ -123,7 +121,7 @@ public class AktivnaScena extends Canvas implements Runnable {
 	}
 
 	private boolean udaraZid(Figura f) {
-		int r = (int) f.ro;
+		int r = (int) f.getRo();
 		int x = (int) f.polozaj.getX();
 		int y = (int) f.polozaj.getY();
 		int sirina = getWidth();
@@ -139,9 +137,19 @@ public class AktivnaScena extends Canvas implements Runnable {
 		int visina = getHeight();
 		if (x - r < 0 || x + r >= sirina) {
 			f.pomeraj.setX(-f.pomeraj.getX());
+			if (x - r < 0) {
+				f.polozaj.setX(r);
+			} else {
+				f.polozaj.setX(sirina - r - 1);
+			}
 		}
 		if (y - r < 0 || y + r >= visina) {
 			f.pomeraj.setY(-f.pomeraj.getY());
+			if (y - r < 0) {
+				f.polozaj.setY(r);
+			} else {
+				f.polozaj.setY(visina - r - 1);
+			}
 		}
 	}
 

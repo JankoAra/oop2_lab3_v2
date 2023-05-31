@@ -8,6 +8,7 @@ public abstract class Figura {
 	protected Vektor pomeraj;
 	protected double ro;
 	protected Color boja;
+	protected static final int podrazumevaniRo = 20;
 
 	public Figura(Vektor pol, Vektor pom, double r) {
 		polozaj = pol;
@@ -16,9 +17,7 @@ public abstract class Figura {
 	}
 
 	public Figura(Vektor pol, Vektor pom) {
-		polozaj = pol;
-		pomeraj = pom;
-		ro = 20;
+		this(pol, pom, podrazumevaniRo);
 	}
 
 	public boolean vektorUKruznici(Vektor v) {

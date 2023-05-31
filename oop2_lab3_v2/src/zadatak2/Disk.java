@@ -11,8 +11,7 @@ public class Disk extends Figura {
 	}
 
 	public Disk(Vektor pol, Vektor pom) {
-		super(pol, pom);
-		boja = Color.BLUE;
+		this(pol, pom, podrazumevaniRo);
 	}
 
 	@Override
