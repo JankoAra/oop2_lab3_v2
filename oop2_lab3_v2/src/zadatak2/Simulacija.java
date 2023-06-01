@@ -15,17 +15,8 @@ import java.awt.event.WindowEvent;
 public class Simulacija extends Frame {
 
 	private AktivnaScena scena;
-	
-	private void populateWindow() {
-		add(scena, BorderLayout.CENTER);
-	}
 
-	public Simulacija() {
-		setSize(new Dimension(500, 500));
-		setTitle("Simulacija");
-		scena = new AktivnaScena(this);
-		populateWindow();
-
+	private void addListeners() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -47,9 +38,18 @@ public class Simulacija extends Frame {
 				// moze biti neka druga figura, ne mora disk
 				Figura f = new Disk(polozaj, pomeraj);
 
-
 				scena.dodajFiguru(f);
 				scena.repaint();
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				Simulacija.this.requestFocus();
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				Simulacija.this.requestFocus();
 			}
 		});
 
@@ -75,10 +75,23 @@ public class Simulacija extends Frame {
 				}
 			}
 		});
+	}
+
+	private void populateWindow() {
+		add(scena, BorderLayout.CENTER);
+	}
+
+	public Simulacija() {
+		setSize(new Dimension(500, 500));
+		setTitle("Simulacija");
+		scena = new AktivnaScena(this);
+		populateWindow();
+		addListeners();
+
 		setResizable(true);
 		setVisible(true);
 	}
-	
+
 	public static void main(String[] args) {
 		new Simulacija();
 	}
