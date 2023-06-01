@@ -65,6 +65,7 @@ public class AktivnaScena extends Canvas implements Runnable {
 
 	@Override
 	public void paint(Graphics g) {
+		super.paint(g);
 		int canvasWidth = getWidth();
 		int canvasHeight = getHeight();
 		for (Figura f : figure) {

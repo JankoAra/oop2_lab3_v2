@@ -22,6 +22,7 @@ public class Simulacija extends Frame {
 
 	public Simulacija() {
 		setSize(new Dimension(500, 500));
+		setTitle("Simulacija");
 		scena = new AktivnaScena(this);
 		populateWindow();
 
