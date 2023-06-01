@@ -21,6 +21,7 @@ public class AktivnaScena extends Canvas implements Runnable {
 	private ArrayList<Figura> figure = new ArrayList<>();
 	private int multiplikator = 3;
 	private StatusScene status;
+	private Thread mojaNit;
 
 	public AktivnaScena(Simulacija glProzor) {
 		glavniProzor = glProzor;
