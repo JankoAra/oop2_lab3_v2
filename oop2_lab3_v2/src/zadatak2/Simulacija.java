@@ -36,6 +36,7 @@ public class Simulacija extends Frame {
 		scena.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				Simulacija.this.requestFocus();
 				if (scena.scenaAktivna())
 					return;
 				int x = e.getX();

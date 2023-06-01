@@ -27,7 +27,8 @@ public class AktivnaScena extends Canvas implements Runnable {
 		glavniProzor = glProzor;
 		setBackground(Color.GRAY);
 		status = StatusScene.PAUZIRANA;
-		new Thread(this).start();
+		mojaNit = new Thread(this);
+		mojaNit.start();
 	}
 
 	public int getMultiplikator() {
@@ -48,19 +49,22 @@ public class AktivnaScena extends Canvas implements Runnable {
 		figure.add(fig);
 	}
 
-	public void zavrsiScenu() {
+	public synchronized void zavrsiScenu() {
 		status = StatusScene.ZAVRSENA;
+		mojaNit.interrupt();
 	}
 
-	public void aktivirajScenu() {
+	public synchronized void aktivirajScenu() {
 		status = StatusScene.AKTIVNA;
+		notifyAll();
 	}
 
-	public void pauzirajScenu() {
+	public synchronized void pauzirajScenu() {
 		status = StatusScene.PAUZIRANA;
+		mojaNit.interrupt();
 	}
 
-	public boolean scenaAktivna() {
+	public synchronized boolean scenaAktivna() {
 		return status == StatusScene.AKTIVNA;
 	}
 
@@ -93,13 +97,16 @@ public class AktivnaScena extends Canvas implements Runnable {
 	public void run() {
 		while (status != StatusScene.ZAVRSENA) {
 			try {
-				glavniProzor.requestFocus();
-
-				Thread.sleep(sleepTime);
-				if (status == StatusScene.AKTIVNA) {
-					izracunajPomeraje();
-					repaint();
+				synchronized (this) {
+					while (!scenaAktivna()) {
+						wait();
+					}
 				}
+				Thread.sleep(sleepTime);
+				if (mojaNit.interrupted())
+					continue;
+				izracunajPomeraje();
+				repaint();
 			} catch (InterruptedException e) {
 			}
 		}
@@ -107,6 +114,8 @@ public class AktivnaScena extends Canvas implements Runnable {
 	}
 
 	private void izracunajPomeraje() {
+		if (!scenaAktivna())
+			return;
 		for (Figura f : figure) {
 			Vektor ort = f.pomeraj.ortVektor();
 			ort.setX(ort.getX() * multiplikator);
